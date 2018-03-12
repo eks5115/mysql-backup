@@ -1,0 +1,9 @@
+# Created by .ignore support plugin (hsz.mobi)
+
+#.idea
+/.idea
+*.iml
+
+env.properties
+mysql-backup.log
+/mysql-backup
