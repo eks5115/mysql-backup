@@ -3,7 +3,7 @@
 set -e
 
 # to work path
-cd `pwd`
+cd `dirname $0`
 
 # include conf
 source './env.properties'
