@@ -28,11 +28,11 @@ mkdir -p ${BACKUP_DIR}
 
 SQL_DIR=${BACKUP_DIR}/${DATE}/sql
 DATA_DIR=${BACKUP_DIR}/${DATE}/data
-BIN_LOG_DIR=${BACKUP_DIR}/${DATE}/bin-log
+LOG_BIN_DIR=${BACKUP_DIR}/${DATE}/bin-log
 
 mkdir -p ${SQL_DIR}
 mkdir -p ${DATA_DIR}
-mkdir -p ${BIN_LOG_DIR}
+mkdir -p ${LOG_BIN_DIR}
 
 ###
 # backup data
@@ -41,8 +41,8 @@ echo "`date +${DATETIME_FORMAT}`: backup data complete!" >> ${MYSQL_BACKUP_LOG}
 
 ###
 # backup bin-log
-if [ ${MYSQL_BIN_LOG_DIR} ];then
-  rsync -a --include "${MYSQL_BIN_LOG}.*" --exclude '/*' ${SSH_USER}@${HOST}:${MYSQL_BIN_LOG_DIR}/ ${BIN_LOG_DIR}
+if [ ${MYSQL_LOG_BIN_DIR} ];then
+  rsync -a --include "${MYSQL_LOG_BIN}.*" --exclude '/*' ${SSH_USER}@${HOST}:${MYSQL_LOG_BIN_DIR}/ ${LOG_BIN_DIR}
   echo "`date +${DATETIME_FORMAT}`: backup bin-log complete!" >> ${MYSQL_BACKUP_LOG}
 fi
 
@@ -50,7 +50,7 @@ fi
 # expired data
 if [ ${EXPIRED_DATE} ];then
 
-  find ${BACKUP_DIR} -type d -maxdepth 1 -ctime +${EXPIRED_DATE} -exec rm -rf {} \;
+  find ${BACKUP_DIR} -maxdepth 1 -type d -ctime +${EXPIRED_DATE} -exec rm -rf {} \;
   echo "`date +${DATETIME_FORMAT}`: expired backup data delete complete!" >> ${MYSQL_BACKUP_LOG}
 fi
 
