@@ -28,7 +28,7 @@ mkdir -p ${BACKUP_DIR}
 
 SQL_DIR=${BACKUP_DIR}/${DATE}/sql
 DATA_DIR=${BACKUP_DIR}/${DATE}/data
-LOG_BIN_DIR=${BACKUP_DIR}/${DATE}/bin-log
+LOG_BIN_DIR=${BACKUP_DIR}/${DATE}/log-bin
 
 mkdir -p ${SQL_DIR}
 mkdir -p ${DATA_DIR}
