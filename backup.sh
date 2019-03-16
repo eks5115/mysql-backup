@@ -28,7 +28,12 @@ mkdir -p ${BACKUP_DIR}
 
 SQL_DIR=${BACKUP_DIR}/${DATE}/sql
 DATA_DIR=${BACKUP_DIR}/${DATE}/data
-LOG_BIN_DIR=${BACKUP_DIR}/${DATE}/log-bin
+LOG_BIN_DIR=${BACKUP_DIR}/log-bin
+LOG_BIN_DIR_TMP=${LOG_BIN_DIR}-tmp
+
+if [[ -d ${LOG_BIN_DIR} ]];then
+  mv ${LOG_BIN_DIR} ${LOG_BIN_DIR_TMP}
+fi
 
 mkdir -p ${SQL_DIR}
 mkdir -p ${DATA_DIR}
@@ -53,6 +58,10 @@ if [ ${EXPIRED_DATE} ];then
   find ${BACKUP_DIR} -maxdepth 1 -type d -ctime +${EXPIRED_DATE} -exec rm -rf {} \;
   echo "`date +${DATETIME_FORMAT}`: expired backup data delete complete!" >> ${MYSQL_BACKUP_LOG}
 fi
+
+###
+# clear
+rm -rf ${LOG_BIN_DIR_TMP}
 
 echo "`date +${DATETIME_FORMAT}`: All backup success!" >> ${MYSQL_BACKUP_LOG}
 echo -e "----------\n" >> ${MYSQL_BACKUP_LOG}
