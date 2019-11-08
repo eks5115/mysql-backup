@@ -54,8 +54,7 @@ fi
 ###
 # expired date
 if [ ${EXPIRED_DATE} ];then
-  let "EXPIRED_DATE = ${EXPIRED_DATE}-1"
-  find ${BACKUP_DIR} -maxdepth 1 -type d -ctime +${EXPIRED_DATE} -exec rm -rf {} \;
+  find ${BACKUP_DIR} -maxdepth 1 -type d -ctime ${EXPIRED_DATE} -exec rm -rf {} \;
   echo "`date +${DATETIME_FORMAT}`: expired backup data delete complete!" >> ${MYSQL_BACKUP_LOG}
 fi
 
