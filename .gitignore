@@ -6,4 +6,4 @@
 
 env.properties
 mysql-backup.log
-/mysql-backup
+backup/*
